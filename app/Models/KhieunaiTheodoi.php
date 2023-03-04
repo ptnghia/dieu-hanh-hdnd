@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
+class KhieunaiTheodoi extends Model
+{
+    use HasFactory;
+    protected  $table = 'khieu_nai_theo_doi';
+
+    public function check_theodoi($id_khieunai){
+        $data = DB::table($this->table)
+            ->where('khieu_nai_id', '=', $id_khieunai)
+            ->where('user_id', Auth::user()->id)
+            ->first();
+            return $data;
+    }
+
+    public function insert($data){
+
+        return DB::table($this->table)->insert($data);
+ 
+    }
+
+    public function getUser_theodoi($id_khieunai){
+        $data = DB::table($this->table)
+            ->where('khieu_nai_id', '=', $id_khieunai)
+            ->get();
+            return $data;
+    }
+}
